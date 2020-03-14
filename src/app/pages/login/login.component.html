@@ -1,5 +1,5 @@
 <div class="nav-spacer footer-spacer vh-100">
-  <div class="p-5" *ngIf="!currentSessionService.isAuthenticated(); else elseBlock">
+  <div class="p-5">
     <mat-card class="">
       <mat-card-title> Login </mat-card-title>
       <mat-card-content>
@@ -27,10 +27,4 @@
       </mat-card-actions>
     </mat-card>
   </div>
-  <ng-template #elseBlock>
-    <div class="d-flex h-100 justify-content-around align-items-center">
-      <button mat-raised-button (click)="logout()">Logout</button>
-      <button mat-raised-button routerLink="/new">New project!</button>
-    </div>
-  </ng-template>
 </div>

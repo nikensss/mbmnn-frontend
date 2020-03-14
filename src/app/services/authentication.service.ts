@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { Login } from '../classes/login';
 import { Session } from '../classes/session';
+import { User } from '../classes/user';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private basePath = 'http://localhost:3210/api/users/';
+  private loginUrl = 'http://localhost:3210/api/users/login';
 
   constructor(private http: HttpClient) {}
 
@@ -16,12 +16,12 @@ export class AuthenticationService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
 
     return this.http
-      .post(this.basePath + 'login', body.toString(), { headers, observe: 'response' })
+      .post(this.loginUrl, body.toString(), { headers, observe: 'response' })
       .toPromise()
       .then(d => Promise.resolve(this.extractData(d)));
   }
 
-  private extractData(res: any) {
-    return res.body;
+  private extractData(res: HttpResponse<any>): Session {
+    return new Session(res.body.token, new User(res.body.username));
   }
 }

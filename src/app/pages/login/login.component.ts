@@ -21,7 +21,11 @@ export class LoginComponent {
     private authenticationService: AuthenticationService,
     private currentSessionService: CurrentSessionService,
     private router: Router
-  ) {}
+  ) {
+    if(currentSessionService.isAuthenticated()){
+      router.navigate(['/admin']);
+    }
+  }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -45,11 +49,8 @@ export class LoginComponent {
     }
   }
 
-  public logout(): void {
-    this.currentSessionService.logout();
-  }
-
   private correctLogin(session: Session) {
     this.currentSessionService.setCurrentSession(session);
+    this.router.navigate(['/admin']);
   }
 }

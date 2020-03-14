@@ -16,7 +16,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProjectComponent } from './pages/project/project.component';
 import { LoginComponent } from './pages/login/login.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { NewComponent } from './pages/new/new.component';
+import { AdminComponent } from './pages/admin/admin.component';
+import { NewProjectComponent } from './pages/new-project/new-project.component';
 
 @NgModule({
   declarations: [
@@ -26,8 +27,8 @@ import { NewComponent } from './pages/new/new.component';
     ProjectComponent,
     LoginComponent,
     FooterComponent,
-    NewComponent,
-    NewComponent
+    AdminComponent,
+    NewProjectComponent
   ],
   imports: [
     BrowserModule,
