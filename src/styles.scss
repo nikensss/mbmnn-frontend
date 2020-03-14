@@ -1,0 +1,34 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+  --nav-width: 12rem;
+  --footer-height: 4.5rem;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+.nav-spacer {
+  padding-left: var(--nav-width);
+}
+
+.footer-spacer {
+  padding-bottom: var(--footer-height);
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: var(--footer-height);
+}
