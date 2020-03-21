@@ -10,12 +10,16 @@ import { Router } from '@angular/router';
 })
 export class AdminComponent implements OnInit {
   constructor(
-    private authenticationService: AuthenticationService,
-    private currentSessionService: CurrentSessionService,
+    private _authenticationService: AuthenticationService,
+    private _currentSessionService: CurrentSessionService,
     private router: Router
   ) {}
 
   ngOnInit() {}
+
+  public get currentSessionService(): CurrentSessionService{
+    return this._currentSessionService;
+  }
 
   public logout(): void {
     this.currentSessionService.logout();
