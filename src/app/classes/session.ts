@@ -4,9 +4,9 @@ export class Session {
   private _token: string;
   private _user: User;
 
-  constructor(token: string, user: User) {
-    this._token = token;
-    this._user = user;
+  constructor(_token: string, _user: User) {
+    this._token = _token;
+    this._user = _user;
   }
 
   get token(): string {

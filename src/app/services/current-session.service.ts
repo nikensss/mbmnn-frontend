@@ -20,9 +20,9 @@ export class CurrentSessionService {
     this.localStorageService.setItem('currentUser', JSON.stringify(session));
   }
 
-  loadSessionData(): Session {
-    const sessionStr = this.localStorageService.getItem('currentUser');
-    return sessionStr ? <Session>JSON.parse(sessionStr) : null;
+  private loadSessionData(): Session {
+    const sessionStr = JSON.parse(this.localStorageService.getItem('currentUser'));
+    return sessionStr ? new Session(sessionStr._token, sessionStr._user) : null;
   }
 
   getCurrentSession(): Session {
@@ -35,7 +35,7 @@ export class CurrentSessionService {
   }
 
   getCurrentUser(): User {
-    var session: Session = this.getCurrentSession();
+    const session: Session = this.getCurrentSession();
     return session && session.user ? session.user : null;
   }
 
@@ -44,7 +44,7 @@ export class CurrentSessionService {
   }
 
   getCurrentToken(): string {
-    var session = this.getCurrentSession();
+    const session = this.getCurrentSession();
     return session && session.token ? session.token : null;
   }
 

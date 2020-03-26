@@ -50,6 +50,7 @@ export class LoginComponent {
   }
 
   private correctLogin(session: Session) {
+    console.log(JSON.stringify(session));
     this.currentSessionService.setCurrentSession(session);
     this.router.navigate(['/admin']);
   }
