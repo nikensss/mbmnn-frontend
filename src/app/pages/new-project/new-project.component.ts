@@ -40,25 +40,27 @@ export class NewProjectComponent implements OnInit {
       title: ['', [Validators.required]],
       description: ['', [Validators.required]],
       mainImage: ['', [Validators.required]],
-      texts: this.fb.array([this.fb.group({
-        text: ['', [Validators.required]]
-      })]),
-      images: this.fb.array([this.fb.group({
-        image: ['', [Validators.required]]
-      })])
+      texts: this.fb.array([
+        this.fb.group({
+          text: ['', [Validators.required]]
+        })
+      ]),
+      images: this.fb.array([
+        this.fb.group({
+          image: ['', [Validators.required]]
+        })
+      ])
     });
 
-    this._texts = this._projectForm.get('texts') as FormArray;
-    console.log(this._projectForm);
-
-    this._images = <FormArray>this._projectForm.get('images');
+    this._texts = this.texts;
+    this._images = this.images;
   }
 
   get texts(): FormArray {
     return this._projectForm.get('texts') as FormArray;
   }
 
-  get images(): FormArray{
+  get images(): FormArray {
     return this._projectForm.get('images') as FormArray;
   }
 
@@ -78,7 +80,6 @@ export class NewProjectComponent implements OnInit {
 
   public addText(): void {
     this._texts.push(this.createText(''));
-    console.log(this._texts);
   }
 
   public createText(text: String): FormGroup {
@@ -92,7 +93,7 @@ export class NewProjectComponent implements OnInit {
   }
 
   private delete(controlName: string, index: number): void {
-    (<FormArray>this._projectForm.controls[controlName]).removeAt(index);
+    (this._projectForm.controls[controlName] as FormArray).removeAt(index);
   }
 
   public submit(): void {
