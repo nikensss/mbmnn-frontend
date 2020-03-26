@@ -12,7 +12,7 @@ export class AuthenticationService {
   constructor(private http: HttpClient) {}
 
   public login(login: Login): Promise<Session> {
-    const body = new HttpParams().set(`username`, login.username).set(`password`, login.password);
+    const body = new HttpParams().set('username', login.username).set('password', login.password);
     const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
 
     return this.http

@@ -22,7 +22,7 @@ export class CurrentSessionService {
 
   private loadSessionData(): Session {
     const sessionStr = JSON.parse(this.localStorageService.getItem('currentUser'));
-    return sessionStr ? new Session(sessionStr._token, sessionStr._user) : null;
+    return sessionStr ? new Session(sessionStr.token, sessionStr.user) : null;
   }
 
   getCurrentSession(): Session {
