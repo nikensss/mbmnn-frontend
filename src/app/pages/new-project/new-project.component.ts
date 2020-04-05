@@ -14,6 +14,8 @@ export class NewProjectComponent implements OnInit {
   private _texts: FormArray;
   private _images: FormArray;
   private _projectForm: FormGroup;
+  private _mainImage: File;
+  private _sideImages: File[] = [];
 
   public submitText: string = 'Submit';
   public disabled: boolean = false;
@@ -65,12 +67,12 @@ export class NewProjectComponent implements OnInit {
   }
 
   public addImage(): void {
-    this._images.push(this.createImage(''));
+    this._images.push(this.createImage());
   }
 
-  public createImage(image: String): FormGroup {
+  public createImage(): FormGroup {
     return this.fb.group({
-      image: [image, [Validators.required]]
+      image: [null, [Validators.required]]
     });
   }
 
@@ -95,17 +97,57 @@ export class NewProjectComponent implements OnInit {
   private delete(controlName: string, index: number): void {
     (this._projectForm.controls[controlName] as FormArray).removeAt(index);
   }
+  /*
+  to have iamges in Base64 encoding
+
+  const file: File = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener('load', (event: any) => {
+      console.log('loading image result: ' + event.target.result);
+      if (target === 'mainImage') {
+        this._mainImage = event.target.result;
+      } else {
+         this._sideImages.push(event.target.result);
+      }
+    });
+
+    reader.readAsDataURL(file);
+   */
+
+  public onFileSelected(event) {
+    const target = event.path[0].attributes[3].value;
+    if (target === 'mainImage') {
+      this._mainImage = event.target.files[0];
+    } else {
+      this._sideImages.push(event.target.files[0]);
+    }
+  }
+
+  private flushAndAssignExtraImages() {
+    this._projectForm.value.mainImage = this._mainImage;
+    this._projectForm.value.images = this._projectForm.value.images
+      .filter(i => i.image !== null)
+      .map((image, index) => this._sideImages[index]);
+  }
 
   public submit(): void {
-    this.disabled = true;
+    // this.disabled = true;
     this.submitText = 'Submitting.';
-    const handle = setInterval(() => {
-      this.submitText = /\.{3}/.test(this.submitText) ? 'Submitting.' : this.submitText + '.';
-    }, 250);
-    setTimeout(() => {
-      clearInterval(handle);
-      this.submitText = 'Done!';
-      this.disabled = false;
-    }, 3000);
+    this.flushAndAssignExtraImages();
+    this.projectService.postNewProject(this._projectForm)
+    .subscribe(res => {
+      console.log(res);
+    });
   }
 }
+
+
+//const handle = setInterval(() => {
+  //   this.submitText = /\.{3}/.test(this.submitText) ? 'Submitting.' : this.submitText + '.';
+  // }, 250);
+  // setTimeout(() => {
+  //   clearInterval(handle);
+  //   this.submitText = 'Done!';
+  //   this.disabled = false;
+  // }, 3000);
