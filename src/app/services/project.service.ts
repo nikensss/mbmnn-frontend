@@ -1,17 +1,17 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { Project } from '../classes/project';
-import { IProject } from '../interfaces/iproject';
-import { FormGroup } from '@angular/forms';
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
+import { Project } from "../classes/project";
+import { IProject } from "../interfaces/iproject";
+import { FormGroup } from "@angular/forms";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ProjectService {
-  private baseUrl: string = 'http://localhost:3210/api/';
-  private projectsUrl: string = this.baseUrl + 'projects/';
-  private allProjects: string = this.projectsUrl + 'all';
-  private postNewProjectUrl: string = this.projectsUrl + 'new';
+  private baseUrl: string = "http://localhost:3210/api/";
+  private projectsUrl: string = this.baseUrl + "projects/";
+  private allProjects: string = this.projectsUrl + "all";
+  private postNewProjectUrl: string = this.projectsUrl + "new";
 
   constructor(private http: HttpClient) {}
 
@@ -19,7 +19,7 @@ export class ProjectService {
     return this.http
       .get(this.allProjects)
       .toPromise()
-      .then((data: IProject[]) => data.map(d => new Project(d)));
+      .then((data: IProject[]) => data.map((d) => new Project(d)));
   }
 
   public getProject(id: string): Promise<Project> {
@@ -31,8 +31,18 @@ export class ProjectService {
 
   public postNewProject(form: FormGroup) {
     console.log(form.value);
-    const body = new HttpParams();
-    const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    return this.http.post(this.postNewProjectUrl,  form.value, { headers, observe: 'response' });
+    let body = new HttpParams();
+    for (const formField in form.value) {
+      body = body.set(formField, form.value[formField]);
+    }
+    console.log("body");
+    console.log(body);
+    const headers = new HttpHeaders({
+      "Content-Type": "application/x-www-form-urlencoded",
+    });
+    return this.http.post(this.postNewProjectUrl, body, {
+      headers,
+      observe: "response",
+    });
   }
 }
