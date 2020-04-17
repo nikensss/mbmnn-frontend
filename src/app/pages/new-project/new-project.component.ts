@@ -41,7 +41,7 @@ export class NewProjectComponent implements OnInit {
     this._projectForm = this.fb.group({
       title: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      mainImage: ['', [Validators.required]],
+      mainImage: [null, [Validators.required]],
       texts: this.fb.array([
         this.fb.group({
           text: ['', [Validators.required]]
@@ -49,13 +49,29 @@ export class NewProjectComponent implements OnInit {
       ]),
       images: this.fb.array([
         this.fb.group({
-          image: ['', [Validators.required]]
+          image: [null, [Validators.required]]
         })
       ])
     });
 
     this._texts = this.texts;
     this._images = this.images;
+  }
+
+  get mainImage() {
+    return this._mainImage;
+  }
+
+  set mainImage(f: File) {
+    this.mainImage = f;
+  }
+
+  get sideImages() {
+    return this._sideImages;
+  }
+
+  set sideImages(files: File[]) {
+    this.sideImages = files;
   }
 
   get texts(): FormArray {
@@ -115,10 +131,13 @@ export class NewProjectComponent implements OnInit {
     reader.readAsDataURL(file);
    */
 
-  public onFileSelected(event) {
-    const target = event.path[0].attributes[3].value;
-    if (target === 'mainImage') {
+  public onFileSelected(event: any) {
+    console.log(event);
+    console.log(event.target.dataset.formcontrolname);
+    if (event.target.dataset.formcontrolname === 'mainImage') {
       this._mainImage = event.target.files[0];
+      this.projectForm.setControl('mainImage', this.fb.control(this.mainImage));
+      console.log(this.projectForm.get('mainImage'));
     } else {
       this._sideImages.push(event.target.files[0]);
     }
@@ -127,7 +146,7 @@ export class NewProjectComponent implements OnInit {
   private flushAndAssignExtraImages() {
     this._projectForm.value.mainImage = this._mainImage;
     this._projectForm.value.images = this._projectForm.value.images
-      .filter(i => i.image !== null)
+      .filter((i) => i.image !== null)
       .map((image, index) => this._sideImages[index]);
   }
 
@@ -135,19 +154,17 @@ export class NewProjectComponent implements OnInit {
     // this.disabled = true;
     this.submitText = 'Submitting.';
     this.flushAndAssignExtraImages();
-    this.projectService.postNewProject(this._projectForm)
-    .subscribe(res => {
+    this.projectService.postNewProject(this._projectForm).subscribe((res) => {
       console.log(res);
     });
   }
 }
 
-
 //const handle = setInterval(() => {
-  //   this.submitText = /\.{3}/.test(this.submitText) ? 'Submitting.' : this.submitText + '.';
-  // }, 250);
-  // setTimeout(() => {
-  //   clearInterval(handle);
-  //   this.submitText = 'Done!';
-  //   this.disabled = false;
-  // }, 3000);
+//   this.submitText = /\.{3}/.test(this.submitText) ? 'Submitting.' : this.submitText + '.';
+// }, 250);
+// setTimeout(() => {
+//   clearInterval(handle);
+//   this.submitText = 'Done!';
+//   this.disabled = false;
+// }, 3000);

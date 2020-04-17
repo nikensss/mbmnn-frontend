@@ -20,7 +20,8 @@
       <label class="mb-0 w-25 text-right">
         <h4 class="mb-0 pr-2">Main image:</h4>
       </label>
-      <input type="file" class="form-control-file w-75" accept="image/*" formControlName="mainImage" (change)="onFileSelected($event)">
+      <input type="file" class="form-control-file w-75" accept="image/*" data-formcontrolname="mainImage"
+        formControlName="mainImage" (change)="onFileSelected($event)">
     </div>
     <!-- Texts and images -->
     <div class="row form-group">
@@ -61,7 +62,8 @@
               </label>
             </div>
             <div class="col-9 d-flex justify-content-center align-items-center">
-              <input type="file" class="form-control-file" accept="image/*" formControlName="image" (change)="onFileSelected($event)">
+              <input type="file" class="form-control-file" accept="image/*" data-formcontrolname="image"
+                formControlName="image" (change)="onFileSelected($event)">
             </div>
             <div class="col-1 d-flex align-items-center">
               <button class="btn btn-danger" (click)="deleteImage(i)">&times;</button>
