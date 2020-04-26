@@ -42,16 +42,8 @@ export class NewProjectComponent implements OnInit {
       title: ['', [Validators.required]],
       description: ['', [Validators.required]],
       mainImage: [null, [Validators.required]],
-      texts: this.fb.array([
-        this.fb.group({
-          text: ['', [Validators.required]]
-        })
-      ]),
-      images: this.fb.array([
-        this.fb.group({
-          image: [null, [Validators.required]]
-        })
-      ])
+      texts: this.fb.array([this.createText('')]),
+      images: this.fb.array([this.createImage()])
     });
 
     this._texts = this.texts;
@@ -63,7 +55,7 @@ export class NewProjectComponent implements OnInit {
   }
 
   set mainImage(f: File) {
-    this.mainImage = f;
+    this._mainImage = f;
   }
 
   get sideImages() {
@@ -71,15 +63,15 @@ export class NewProjectComponent implements OnInit {
   }
 
   set sideImages(files: File[]) {
-    this.sideImages = files;
+    this._sideImages = files;
   }
 
   get texts(): FormArray {
-    return this._projectForm.get('texts') as FormArray;
+    return this.projectForm.get('texts') as FormArray;
   }
 
   get images(): FormArray {
-    return this._projectForm.get('images') as FormArray;
+    return this.projectForm.get('images') as FormArray;
   }
 
   public addImage(): void {
@@ -134,28 +126,38 @@ export class NewProjectComponent implements OnInit {
   public onFileSelected(event: any) {
     console.log(event);
     console.log(event.target.dataset.formcontrolname);
+    // this.projectForm.patchValue({
+    //   mainImage: event.target.files[0]
+    // });
     if (event.target.dataset.formcontrolname === 'mainImage') {
-      this._mainImage = event.target.files[0];
-      this.projectForm.setControl('mainImage', this.fb.control(this.mainImage));
-      console.log(this.projectForm.get('mainImage'));
+      this.mainImage = event.target.files[0];
+      // this.projectForm.get('mainImage').setValue(this.mainImage);
+      // console.log(this.projectForm.get('mainImage'));
+      // console.log(this.projectForm.get('mainImage').value);
     } else {
-      this._sideImages.push(event.target.files[0]);
+      this.sideImages.push(event.target.files[0]);
     }
   }
 
   private flushAndAssignExtraImages() {
-    this._projectForm.value.mainImage = this._mainImage;
-    this._projectForm.value.images = this._projectForm.value.images
+    this.projectForm.value.mainImage = this._mainImage;
+    this.projectForm.value.images = this._projectForm.value.images
       .filter((i) => i.image !== null)
       .map((image, index) => this._sideImages[index]);
   }
 
   public submit(): void {
     // this.disabled = true;
-    this.submitText = 'Submitting.';
+    this.submitText = 'Submitting';
     this.flushAndAssignExtraImages();
-    this.projectService.postNewProject(this._projectForm).subscribe((res) => {
+    const formData = new FormData();
+    formData.append('title', this.projectForm.get('title').value);
+    formData.append('description', this.projectForm.get('description').value);
+    formData.append('mainImage', this.mainImage, this.mainImage.name);
+    formData.append('texts', this.projectForm.get('texts').value);
+    this.projectService.postNewProject(formData).subscribe((res) => {
       console.log(res);
+      this.submitText = 'Submit';
     });
   }
 }
