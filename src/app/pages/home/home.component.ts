@@ -15,6 +15,6 @@ export class HomeComponent {
     projectService
       .getProjects()
       .then((d: Project[]) => (this.projects = d))
-      .catch(err => (this.error = err.error.err));
+      .catch((err) => (this.error = err.error));
   }
 }

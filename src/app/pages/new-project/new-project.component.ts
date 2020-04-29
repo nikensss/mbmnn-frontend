@@ -105,68 +105,37 @@ export class NewProjectComponent implements OnInit {
   private delete(controlName: string, index: number): void {
     (this._projectForm.controls[controlName] as FormArray).removeAt(index);
   }
-  /*
-  to have iamges in Base64 encoding
-
-  const file: File = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.addEventListener('load', (event: any) => {
-      console.log('loading image result: ' + event.target.result);
-      if (target === 'mainImage') {
-        this._mainImage = event.target.result;
-      } else {
-         this._sideImages.push(event.target.result);
-      }
-    });
-
-    reader.readAsDataURL(file);
-   */
 
   public onFileSelected(event: any) {
     console.log(event);
     console.log(event.target.dataset.formcontrolname);
-    // this.projectForm.patchValue({
-    //   mainImage: event.target.files[0]
-    // });
     if (event.target.dataset.formcontrolname === 'mainImage') {
       this.mainImage = event.target.files[0];
-      // this.projectForm.get('mainImage').setValue(this.mainImage);
-      // console.log(this.projectForm.get('mainImage'));
-      // console.log(this.projectForm.get('mainImage').value);
     } else {
       this.sideImages.push(event.target.files[0]);
     }
   }
 
-  private flushAndAssignExtraImages() {
-    this.projectForm.value.mainImage = this._mainImage;
-    this.projectForm.value.images = this._projectForm.value.images
-      .filter((i) => i.image !== null)
-      .map((image, index) => this._sideImages[index]);
-  }
-
   public submit(): void {
-    // this.disabled = true;
+    this.disabled = true;
     this.submitText = 'Submitting';
-    this.flushAndAssignExtraImages();
+
     const formData = new FormData();
     formData.append('title', this.projectForm.get('title').value);
     formData.append('description', this.projectForm.get('description').value);
     formData.append('mainImage', this.mainImage, this.mainImage.name);
-    formData.append('texts', this.projectForm.get('texts').value);
+
+    for (let text of this.projectForm.get('texts').value) {
+      formData.append('texts', text.text);
+    }
+
+    for (let image of this.sideImages) {
+      formData.append('images', image, image.name);
+    }
+
     this.projectService.postNewProject(formData).subscribe((res) => {
       console.log(res);
-      this.submitText = 'Submit';
+      this.submitText = 'Done!';
     });
   }
 }
-
-//const handle = setInterval(() => {
-//   this.submitText = /\.{3}/.test(this.submitText) ? 'Submitting.' : this.submitText + '.';
-// }, 250);
-// setTimeout(() => {
-//   clearInterval(handle);
-//   this.submitText = 'Done!';
-//   this.disabled = false;
-// }, 3000);

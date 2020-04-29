@@ -30,17 +30,7 @@ export class ProjectService {
   }
 
   public postNewProject(form: FormData) {
-    // console.log(form.value);
-    // console.log(JSON.stringify(form.value));
-    // let body = new HttpParams();
-    // for (const formField in form.value) {
-    //   body = body.set(formField, form.value[formField]);
-    // }
-    // console.log('body');
-    // console.log(body);
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
+    const headers = new HttpHeaders();
     return this.http.post(this.postNewProjectUrl, form, {
       headers,
       observe: 'response'
