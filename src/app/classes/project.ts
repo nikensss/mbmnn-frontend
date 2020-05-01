@@ -1,6 +1,6 @@
 import { IProject } from '../interfaces/iproject';
 
-export class Project implements IProject{
+export class Project implements IProject {
   public _id: string;
   public title: string;
   public description: string;
@@ -13,13 +13,19 @@ export class Project implements IProject{
     this.title = title;
     this.description = description;
     this.texts = texts;
-
     this.mainImage = this.bufferToImage(mainImage.data.data);
-    this.images = images.map(i => this.bufferToImage(i.data.data));
+    this.images = images.map((i) => this.bufferToImage(i.data.data));
   }
 
   private bufferToImage(d: any): string {
-    return 'data:image/jpg;base64,' + btoa(String.fromCharCode.apply(null, new Uint8Array(d)));
+    return (
+      'data:image/jpg;base64,' +
+      btoa(
+        new Uint8Array(d).reduce(function (data, byte) {
+          return data + String.fromCharCode(byte);
+        }, '')
+      )
+    );
   }
 
   public get id(): string {

@@ -86,6 +86,7 @@ export class NewProjectComponent implements OnInit {
 
   public deleteImage(index: number): void {
     this.delete('images', index);
+    this.sideImages.splice(index, 1);
   }
 
   public addText(): void {
@@ -107,8 +108,6 @@ export class NewProjectComponent implements OnInit {
   }
 
   public onFileSelected(event: any) {
-    console.log(event);
-    console.log(event.target.dataset.formcontrolname);
     if (event.target.dataset.formcontrolname === 'mainImage') {
       this.mainImage = event.target.files[0];
     } else {
@@ -133,9 +132,10 @@ export class NewProjectComponent implements OnInit {
       formData.append('images', image, image.name);
     }
 
-    this.projectService.postNewProject(formData).subscribe((res) => {
+    this.projectService.postNewProject(formData).subscribe((res: any) => {
       console.log(res);
       this.submitText = 'Done!';
+      if (res.body.id) this.router.navigate([`/projects/${res.body.id}`]);
     });
   }
 }

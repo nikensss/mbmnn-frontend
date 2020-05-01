@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Project } from '../classes/project';
 import { IProject } from '../interfaces/iproject';
-import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
-  private baseUrl: string = 'http://localhost:3210/api/';
-  private projectsUrl: string = this.baseUrl + 'projects/';
-  private allProjects: string = this.projectsUrl + 'all';
-  private postNewProjectUrl: string = this.projectsUrl + 'new';
+  private readonly baseUrl: string = 'http://localhost:3210/api/';
+  private readonly projectsUrl: string = this.baseUrl + 'projects/';
+  private readonly allProjects: string = this.projectsUrl + 'all';
+  private readonly postNewProjectUrl: string = this.projectsUrl + 'new';
+  private readonly deleteUrl: string = this.projectsUrl + 'delete/';
 
   constructor(private http: HttpClient) {}
 
@@ -35,5 +35,9 @@ export class ProjectService {
       headers,
       observe: 'response'
     });
+  }
+
+  public delete(id: string) {
+    return this.http.get(this.deleteUrl + id);
   }
 }
