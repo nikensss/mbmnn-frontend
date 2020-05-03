@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Login } from '../../classes/login';
-import { AuthenticationService } from '../../services/authentication.service';
-import { CurrentSessionService } from '../../services/current-session.service';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { CurrentSessionService } from '../../services/current-session/current-session.service';
 import { Router } from '@angular/router';
 import { Session } from '../../classes/session';
 
@@ -22,7 +22,7 @@ export class LoginComponent {
     private currentSessionService: CurrentSessionService,
     private router: Router
   ) {
-    if(currentSessionService.isAuthenticated()){
+    if (currentSessionService.isAuthenticated()) {
       router.navigate(['/admin']);
     }
   }
@@ -40,8 +40,8 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authenticationService
         .login(new Login(this.loginForm.value))
-        .then(data => this.correctLogin(data))
-        .catch(error => {
+        .then((data) => this.correctLogin(data))
+        .catch((error) => {
           console.log(error);
           this.error.code = error.status;
           this.error.message = error.error.err;

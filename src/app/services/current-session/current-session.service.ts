@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Session } from '../classes/session';
-import { User } from '../classes/user';
+import { Session } from '../../classes/session';
+import { User } from '../../classes/user';
 
 @Injectable({
   providedIn: 'root'

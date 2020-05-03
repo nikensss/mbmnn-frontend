@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CurrentSessionService } from 'src/app/services/current-session.service';
+import { CurrentSessionService } from 'src/app/services/current-session/current-session.service';
 import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProjectService } from 'src/app/services/project.service';
+import { ProjectService } from 'src/app/services/project/project.service';
 import { Location } from '@angular/common';
 
 @Component({

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Login } from '../classes/login';
-import { Session } from '../classes/session';
-import { User } from '../classes/user';
+import { Login } from '../../classes/login';
+import { Session } from '../../classes/session';
+import { User } from '../../classes/user';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +18,7 @@ export class AuthenticationService {
     return this.http
       .post(this.loginUrl, body.toString(), { headers, observe: 'response' })
       .toPromise()
-      .then(d => Promise.resolve(this.extractData(d)));
+      .then((d) => Promise.resolve(this.extractData(d)));
   }
 
   private extractData(res: HttpResponse<any>): Session {

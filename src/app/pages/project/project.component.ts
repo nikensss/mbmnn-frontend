@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ProjectService } from 'src/app/services/project.service';
+import { ProjectService } from 'src/app/services/project/project.service';
 import { Project } from 'src/app/classes/project';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { CurrentSessionService } from 'src/app/services/current-session.service';
+import { CurrentSessionService } from 'src/app/services/current-session/current-session.service';
 
 @Component({
   selector: 'app-project',

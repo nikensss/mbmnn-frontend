@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProjectComponent } from './pages/project/project.component';
-import { GuardService } from './services/guard.service';
+import { GuardService } from './services/guard/guard.service';
 import { AdminComponent } from './pages/admin/admin.component';
 import { NewProjectComponent } from './pages/new-project/new-project.component';
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Project } from '../classes/project';
-import { IProject } from '../interfaces/iproject';
+import { Project } from '../../classes/project';
+import { IProject } from '../../interfaces/iproject';
 
 @Injectable({
   providedIn: 'root'

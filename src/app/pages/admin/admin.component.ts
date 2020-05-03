@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { CurrentSessionService } from 'src/app/services/current-session.service';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { CurrentSessionService } from 'src/app/services/current-session/current-session.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,7 +17,7 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {}
 
-  public get currentSessionService(): CurrentSessionService{
+  public get currentSessionService(): CurrentSessionService {
     return this._currentSessionService;
   }
 
