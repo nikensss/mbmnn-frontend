@@ -1,15 +1,16 @@
 <div class="nav-spacer footer-spacer" id="top">
-  <ng-container *ngIf="error">
-    <div class="d-flex justify-content-center align-items-center h-100 w-100">
-      <p>{{error}}</p>
-    </div>
-  </ng-container>
+  <div *ngIf="error" class="d-flex justify-content-center align-items-center h-100 w-100">
+    <p>{{error}}</p>
+  </div>
+  <div *ngIf="projects.length === 0" class="position-absolute w-100">
+    <app-loading></app-loading>
+  </div>
   <!-- Carousel start -->
   <div id="projects-carousel" class="carousel slide vh-100" data-ride="carousel">
     <ol class="carousel-indicators">
       <ng-container *ngFor="let project of projects; index as i; first as isFirst">
         <li class="bg-secondary" data-target="#projects-carousel" [attr.data-slide-to]="i"
-            [ngClass]="{'active': isFirst}"></li>
+          [ngClass]="{'active': isFirst}"></li>
       </ng-container>
     </ol>
     <div class="carousel-inner h-100 pb-25vh">

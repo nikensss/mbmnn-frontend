@@ -20,6 +20,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { NewProjectComponent } from './pages/new-project/new-project.component';
 import { ImageUploadComponent } from './components/image-upload/image-upload.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ImageUploadComponent } from './components/image-upload/image-upload.com
     FooterComponent,
     AdminComponent,
     NewProjectComponent,
-    ImageUploadComponent
+    ImageUploadComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

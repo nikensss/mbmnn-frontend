@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProjectService } from 'src/app/services/project/project.service';
 import { Project } from 'src/app/classes/project';
 
@@ -7,12 +7,14 @@ import { Project } from 'src/app/classes/project';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   public projects: Project[] = [];
   public error: string;
 
-  constructor(projectService: ProjectService) {
-    projectService
+  constructor(private projectService: ProjectService) {}
+
+  ngOnInit() {
+    this.projectService
       .getProjects()
       .then((d: Project[]) => (this.projects = d))
       .catch((err) => (this.error = err.error));

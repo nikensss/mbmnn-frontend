@@ -15,14 +15,14 @@ export class ProjectService {
 
   constructor(private http: HttpClient) {}
 
-  public getProjects(): Promise<Project[]> {
+  public async getProjects(): Promise<Project[]> {
     return this.http
       .get(this.allProjects)
       .toPromise()
       .then((data: IProject[]) => data.map((d) => new Project(d)));
   }
 
-  public getProject(id: string): Promise<Project> {
+  public async getProject(id: string): Promise<Project> {
     return this.http
       .get(this.projectsUrl + id)
       .toPromise()
