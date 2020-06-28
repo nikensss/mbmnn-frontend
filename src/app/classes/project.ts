@@ -14,7 +14,7 @@ export class Project implements IProject {
     this.description = description;
     this.texts = texts;
     this.mainImage = this.bufferToImage(mainImage.data.data);
-    this.images = images.map((i) => this.bufferToImage(i.data.data));
+    this.images = images.map(i => this.bufferToImage(i.data.data));
   }
 
   private bufferToImage(d: any): string {
