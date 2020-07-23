@@ -12,7 +12,7 @@ import { User } from '../../classes/user';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private loginUrl = 'http://localhost:3210/api/users/login';
+  private loginUrl = 'http://35.204.58.50/api/users/login';
 
   constructor(private http: HttpClient) {}
 

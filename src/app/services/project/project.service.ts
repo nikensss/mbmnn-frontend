@@ -7,7 +7,7 @@ import { IProject } from '../../interfaces/iproject';
   providedIn: 'root'
 })
 export class ProjectService {
-  private readonly baseUrl: string = 'http://35.204.58.50:3210/api/';
+  private readonly baseUrl: string = 'http://35.204.58.50/api/';
   private readonly projectsUrl: string = this.baseUrl + 'projects/';
   private readonly allProjects: string = this.projectsUrl + 'all';
   private readonly postNewProjectUrl: string = this.projectsUrl + 'new';
