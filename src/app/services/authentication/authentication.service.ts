@@ -8,11 +8,16 @@ import {
 import { Login } from '../../classes/login';
 import { Session } from '../../classes/session';
 import { User } from '../../classes/user';
+import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private loginUrl = 'http://35.204.58.50/api/users/login';
+  private static readonly MBMNN_API: string = environment.mbmnnApi;
+
+  private loginUrl = `${AuthenticationService.MBMNN_API}/api/users/login`;
+  // private loginUrl = 'http://35.204.58.50/api/users/login';
 
   constructor(private http: HttpClient) {}
 

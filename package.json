@@ -50,5 +50,10 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.7.5"
+  },
+  "resolutions": {
+    "**/**/braces": "^3.0.0",
+    "**/**/minimist": "^1.2.3",
+    "**/**/yargs-parser": "^18.1.2"
   }
 }
