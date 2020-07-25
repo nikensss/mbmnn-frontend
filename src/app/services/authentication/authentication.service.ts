@@ -14,20 +14,19 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private static readonly MBMNN_API: string = environment.mbmnnApi;
-
-  private loginUrl = `${AuthenticationService.MBMNN_API}/api/users/login`;
+  private loginUrl = `${environment.mbmnnApi}/api/users/login`;
   // private loginUrl = 'http://35.204.58.50/api/users/login';
 
   constructor(private http: HttpClient) {}
 
   public async login(login: Login): Promise<Session> {
-    const body = new HttpParams()
-      .set('username', login.username)
-      .set('password', login.password);
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
+
+    const body = new HttpParams()
+      .set('username', login.username)
+      .set('password', login.password);
 
     const d = await this.http
       .post(this.loginUrl, body.toString(), { headers, observe: 'response' })
