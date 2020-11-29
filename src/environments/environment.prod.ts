@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  mbmnnApi: 'http://35.204.58.50'
+  mbmnnApi: 'https://mbmnn-backend-l9acq.ondigitalocean.app/api'
 };

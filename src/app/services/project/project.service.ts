@@ -26,7 +26,7 @@ export class ProjectService {
     return this.http
       .get(this.allProjects)
       .toPromise()
-      .then((data: IProject[]) => data.map(d => new Project(d)));
+      .then((data: IProject[]) => data.map((d) => new Project(d)));
   }
 
   public async getProject(id: string): Promise<Project> {
